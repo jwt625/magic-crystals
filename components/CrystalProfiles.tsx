@@ -146,7 +146,7 @@ export default function CrystalProfiles() {
                   ))}
                 </ul>
                 <div className="border-t border-gray-200 pt-4">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                     <span className="font-semibold">Real Application:</span>{' '}
                     {crystal.realUse}
                   </p>

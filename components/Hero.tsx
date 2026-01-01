@@ -25,33 +25,51 @@ export default function Hero() {
             <p className="mb-4 text-2xl text-purple-200 sm:text-3xl">
               Ancient Minerals, Modern Protection
             </p>
-            <p className="mb-8 text-xl text-blue-200">
+            <p className="mb-4 text-xl text-blue-200">
               What Particle Physicists Have Known For Decades
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                document
-                  .getElementById('crystal-collection')
-                  ?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-purple-500 to-blue-500 px-8 py-4 text-lg font-semibold text-white transition-all hover:from-purple-600 hover:to-blue-600"
-            >
-              <motion.div
-                className="absolute inset-0 rounded-full bg-white opacity-20"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2],
+            <p className="mb-8 text-lg text-red-200">
+              Your bioelectric field is under constant assault from invisible
+              forces.
+            </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  document
+                    .getElementById('crystal-collection')
+                    ?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
+                className="group relative overflow-hidden rounded-full bg-gradient-to-r from-purple-500 to-blue-500 px-8 py-4 text-lg font-semibold text-white transition-all hover:from-purple-600 hover:to-blue-600"
+              >
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-white opacity-20"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.2, 0.4, 0.2],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+                <span className="relative z-10">Discover Your Crystal</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  document
+                    .getElementById('invisible-threat')
+                    ?.scrollIntoView({ behavior: 'smooth' });
                 }}
-              />
-              <span className="relative z-10">Discover Your Crystal</span>
-            </motion.button>
+                className="rounded-full border-2 border-red-300 bg-red-900/30 px-8 py-4 text-lg font-semibold text-red-100 backdrop-blur-sm transition-all hover:border-red-200 hover:bg-red-900/50"
+              >
+                Learn About The Threat
+              </motion.button>
+            </div>
           </motion.div>
 
           {/* Crystal Image */}

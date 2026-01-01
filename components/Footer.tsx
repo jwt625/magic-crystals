@@ -48,19 +48,38 @@ export default function Footer() {
                   Medical Imaging
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://www.rp-photonics.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-purple-400"
+                >
+                  RP Photonics
+                </a>
+              </li>
             </ul>
           </div>
-          <div>
+          <div className="group relative">
             <h3 className="mb-4 text-lg font-semibold text-white">
               Disclaimer
             </h3>
-            <p className="text-xs leading-relaxed">
-              This is a satirical website for educational purposes. Crystals
-              mentioned are real materials used in scientific research but do
-              not provide health benefits, EMF protection, or quantum healing.
-              All pseudoscientific claims are intentionally absurd. Please
-              support real science education and research.
-            </p>
+            <div className="relative">
+              <p className="text-xs leading-relaxed transition-opacity duration-500 group-hover:opacity-0">
+                This is a satirical website for educational purposes. Crystals
+                mentioned are real materials used in scientific research but do
+                not provide health benefits, EMF protection, or quantum healing.
+                All pseudoscientific claims are intentionally absurd. Please
+                support real science education and research.
+              </p>
+              <p className="absolute inset-0 text-xs leading-relaxed italic text-gray-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                That said, there are always unknown and unexplained phenomena in
+                nature. The scientific method, while powerful, has its
+                limitations. Just because something hasn&apos;t been proven
+                doesn&apos;t mean it&apos;s not real. We encourage you to keep an
+                open mind and do your own research.
+              </p>
+            </div>
           </div>
         </div>
         <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm">
