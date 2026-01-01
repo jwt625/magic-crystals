@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import QuantumIcon from './icons/QuantumIcon';
 import EnergyIcon from './icons/EnergyIcon';
 import ResonanceIcon from './icons/ResonanceIcon';
@@ -11,6 +12,41 @@ import ScienceIcon from './icons/ScienceIcon';
 export default function Solution() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const solutions = [
+    {
+      title: 'Quantum Coherence',
+      description:
+        'Crystalline lattice structures maintain perfect atomic alignment, creating a protective field of quantum coherence',
+      Icon: QuantumIcon,
+      image: '/assets/solution-quantum.jpg',
+      gradient: 'from-purple-600/20 to-indigo-600/20',
+    },
+    {
+      title: 'Energy Conversion',
+      description:
+        'Scintillation properties actively convert harmful electromagnetic radiation into harmless visible light',
+      Icon: EnergyIcon,
+      image: '/assets/solution-energy.jpg',
+      gradient: 'from-blue-600/20 to-cyan-600/20',
+    },
+    {
+      title: 'Resonant Frequency',
+      description:
+        'Titanium-doped sapphire naturally oscillates at frequencies that harmonize with your bioelectric field',
+      Icon: ResonanceIcon,
+      image: '/assets/solution-resonance.jpg',
+      gradient: 'from-pink-600/20 to-purple-600/20',
+    },
+    {
+      title: 'Scientific Validation',
+      description:
+        'Used in $2B+ medical imaging industry and fundamental physics research worldwide',
+      Icon: ScienceIcon,
+      image: '/assets/solution-science.jpg',
+      gradient: 'from-teal-600/20 to-green-600/20',
+    },
+  ];
 
   return (
     <section
@@ -34,46 +70,40 @@ export default function Solution() {
             protection.
           </p>
           <div className="grid gap-8 sm:grid-cols-2">
-            {[
-              {
-                title: 'Quantum Coherence',
-                description:
-                  'Crystalline lattice structures maintain perfect atomic alignment, creating a protective field of quantum coherence',
-                Icon: QuantumIcon,
-              },
-              {
-                title: 'Energy Conversion',
-                description:
-                  'Scintillation properties actively convert harmful electromagnetic radiation into harmless visible light',
-                Icon: EnergyIcon,
-              },
-              {
-                title: 'Resonant Frequency',
-                description:
-                  'Titanium-doped sapphire naturally oscillates at frequencies that harmonize with your bioelectric field',
-                Icon: ResonanceIcon,
-              },
-              {
-                title: 'Scientific Validation',
-                description:
-                  'Used in $2B+ medical imaging industry and fundamental physics research worldwide',
-                Icon: ScienceIcon,
-              },
-            ].map((item, index) => (
+            {solutions.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="rounded-xl bg-white p-6 shadow-lg"
+                className="group relative overflow-hidden rounded-xl shadow-lg transition-all hover:shadow-xl"
               >
-                <div className="mb-4">
-                  <item.Icon className="h-16 w-16" />
+                {/* Background Image */}
+                <div className="absolute inset-0 -m-1">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Gradient Overlay */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${item.gradient}`}
+                  />
+                  {/* White Overlay for Readability */}
+                  <div className="absolute inset-0 bg-white/75 transition-all duration-300 group-hover:bg-white/90" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
+
+                {/* Content */}
+                <div className="relative z-10 p-6">
+                  <div className="mb-4">
+                    <item.Icon className="h-16 w-16" />
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold text-gray-900">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>

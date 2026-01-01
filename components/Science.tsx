@@ -96,7 +96,7 @@ export default function Science() {
                   className={`absolute inset-0 bg-gradient-to-br ${resource.gradient}`}
                 />
                 {/* White Overlay for Readability */}
-                <div className="absolute inset-0 bg-white/75 transition-all group-hover:bg-white/70" />
+                <div className="absolute inset-0 bg-white/75 transition-all duration-300 group-hover:bg-white/90" />
               </div>
 
               {/* Content */}

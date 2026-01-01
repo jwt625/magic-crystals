@@ -114,11 +114,23 @@ function CrystalCard({
       className="group overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-white shadow-lg transition-all hover:shadow-2xl"
     >
       <div className="relative aspect-video overflow-hidden">
+        {/* Base image */}
         <Image
-          src={isHovered ? crystal.imageHover : crystal.image}
+          src={crystal.image}
           alt={crystal.name}
           fill
-          className="object-cover transition-all duration-500 group-hover:scale-110"
+          className={`object-cover transition-all duration-700 group-hover:scale-110 ${
+            isHovered ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+        {/* Hover image */}
+        <Image
+          src={crystal.imageHover}
+          alt={`${crystal.name} - Enhanced`}
+          fill
+          className={`object-cover transition-all duration-700 group-hover:scale-110 ${
+            isHovered ? 'opacity-100' : 'opacity-0'
+          }`}
         />
         <div
           className={`absolute inset-0 bg-gradient-to-br ${crystal.color} opacity-20 mix-blend-overlay`}

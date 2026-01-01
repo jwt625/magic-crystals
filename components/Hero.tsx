@@ -38,6 +38,18 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   document
+                    .getElementById('invisible-threat')
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="rounded-full border-2 border-red-300 bg-red-900/30 px-8 py-4 text-lg font-semibold text-red-100 backdrop-blur-sm transition-all hover:border-red-200 hover:bg-red-900/50"
+              >
+                Learn About The Threat
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  document
                     .getElementById('crystal-collection')
                     ?.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -56,18 +68,6 @@ export default function Hero() {
                   }}
                 />
                 <span className="relative z-10">Discover Your Crystal</span>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  document
-                    .getElementById('invisible-threat')
-                    ?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="rounded-full border-2 border-red-300 bg-red-900/30 px-8 py-4 text-lg font-semibold text-red-100 backdrop-blur-sm transition-all hover:border-red-200 hover:bg-red-900/50"
-              >
-                Learn About The Threat
               </motion.button>
             </div>
           </motion.div>

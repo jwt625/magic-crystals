@@ -1,2 +1,2 @@
-ppnpm lint-staged
+pnpm lint-staged
 pnpm type-check
