@@ -12,12 +12,14 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Project Goals
 
 ### Primary Objectives
+
 1. Create a convincing "wellness" site that satirizes quantum pseudoscience
 2. Educate visitors about real applications of laser crystals and scintillators
 3. Raise awareness of fundamental research in particle physics and medical imaging
 4. Demonstrate effective science communication through satire
 
 ### Success Metrics
+
 - Visitor engagement and time on site
 - Click-through to educational resources
 - Social sharing (virality potential)
@@ -26,8 +28,9 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Design Decisions
 
 ### Domain & Branding
+
 - **Domain**: quantacrystals.org
-- **Rationale**: 
+- **Rationale**:
   - "Quanta" is real physics terminology (plural of quantum)
   - .org TLD provides pseudo-legitimacy and educational credibility
   - Short, memorable, professional-sounding
@@ -36,17 +39,20 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Visual Design Philosophy
 
 #### Color Palette
+
 - **Primary**: Purple and blue (Ti:Sapphire aesthetic, laser vibes)
 - **Accents**: Light yellow and orange (scintillator glow, Ce:LuAG luminescence)
 - **Supporting**: Deep teals, holographic gradients, scientific whites
 - **Mood**: Premium wellness brand meets high-tech laboratory
 
 #### Typography Strategy
+
 - Elegant serifs for "legitimacy" and wellness credibility
 - Geometric sans-serifs for "scientific" authority
 - Clean, modern, professional presentation
 
 #### Visual Elements
+
 - High-quality crystal photography (AI-generated or stock)
 - Procedural 3D crystal models (Three.js)
 - Subtle particle effects and energy field animations
@@ -58,6 +64,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 **Target Level**: 8-9 out of 10 (where 10 is dangerously convincing)
 
 **Strategy**:
+
 - Use REAL crystal names (Ti:Sapphire, Ce:LuAG, YAG, etc.)
 - Anyone with basic scientific knowledge will recognize legitimate materials
 - Pseudoscientific claims are absurd enough to be obvious satire on close reading
@@ -65,6 +72,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - All secondary links lead to legitimate scientific resources
 
 **Copy Approach**:
+
 - Liberal use of: "quantum," "frequency," "resonance," "coherence," "bioelectric field"
 - Mix real scientific terms with wellness buzzwords
 - Start 80% pseudoscience / 20% real science on landing page
@@ -76,6 +84,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Framework & Technology Stack
 
 #### Core Framework
+
 - **Next.js 14+** with App Router
 - **Rationale**:
   - Server-side rendering for SEO (helps spread the message)
@@ -84,11 +93,13 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
   - Easy integration with 3D libraries
 
 #### Styling & Animation
+
 - **Tailwind CSS**: Utility-first styling, rapid development
 - **Framer Motion**: Smooth animations and transitions
 - **CSS Custom Properties**: Dynamic theming
 
 #### 3D Rendering
+
 - **Three.js** with procedural geometry (Option B)
 - **Rationale**:
   - No dependency on external 3D model assets
@@ -97,6 +108,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
   - Can upgrade to real models (.glb/.gltf) later if needed
 
 #### Deployment & Hosting
+
 - **GitHub Pages**: Free static hosting
 - **Custom Domain**: quantacrystals.org via Cloudflare
 - **Build**: Static export from Next.js
@@ -104,6 +116,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Analytics & Tracking
 
 #### Implemented Solutions
+
 1. **Cloudflare Web Analytics** (Primary)
    - Free, included with domain
    - Privacy-focused, no cookies
@@ -117,6 +130,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
    - Can track multiple sites from one account
 
 #### Future Considerations
+
 - Plausible or Umami (self-hosted) for enhanced privacy
 - Custom event tracking for educational link clicks
 
@@ -125,18 +139,23 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Featured Crystals
 
 #### Flagship Product
+
 **Ti:Sapphire (Titanium-doped Sapphire)**
+
 - Real use: Ultrafast lasers, spectroscopy, medical imaging
 - Visual: Pink-purple translucent crystal
 - Primary focus for hero section and marketing
 
 #### Secondary Focus
+
 **Silicon**
+
 - Expands beyond optics-focused crystals
 - Ubiquitous in technology, relatable
 - Bridge between exotic materials and everyday tech
 
 #### Supporting Cast
+
 - **Ce:LuAG**: Scintillator, yellow-green glow
 - **YAG**: Laser crystals, dental applications
 - **BGO**: PET scanners, particle physics
@@ -146,6 +165,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Website Structure
 
 #### Landing Page Sections
+
 1. **Hero Section**
    - 3D rotating Ti:Sapphire crystal
    - Dramatic headline: "The Crystalline Shield: Ancient Minerals, Modern Protection"
@@ -168,12 +188,14 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 9. **Footer** (Tiny waiver, disclaimers)
 
 #### Secondary Pages
+
 - **/science**: Real educational content about scintillators and laser crystals
 - **/research**: Links to CERN, Fermilab, medical imaging research
 - **/about**: Reveals satirical nature, promotes science education
 - **/crystals/[slug]**: Individual crystal detail pages
 
 ### Interactive Features (Future Phases)
+
 - "Energy Calculator": Recommends crystal based on location (randomized)
 - "Crystal Configurator": 3D viewer with particle effects
 - "Research Library": Curated scientific papers
@@ -184,11 +206,13 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ### Images Needed
 
 #### Hero Crystal (Ti:Sapphire)
+
 **Prompt**: "A premium product photography shot of a titanium-doped sapphire crystal on a clean white surface with soft studio lighting. The crystal is rectangular/cylindrical, approximately 2-3 inches, with a distinctive pink-purple translucent color. Dramatic side lighting creates internal light refraction showing deep purples and blues. Minimal shadows, high-end commercial photography style, sharp focus, slight depth of field blur in background. Professional scientific equipment aesthetic meets luxury product photography."
 
 **Alternative**: "A glowing titanium sapphire crystal levitating above a reflective white surface, emitting soft purple and blue luminescence. Studio photography with gradient background transitioning from deep purple to white. Ethereal light rays passing through the translucent pink crystal. Clean, modern, premium wellness brand aesthetic. Photorealistic, commercial product photography, cinematic lighting."
 
 #### Scintillator Crystal (Ce:LuAG)
+
 **Prompt**: "A cerium-doped lutetium aluminum garnet (Ce:LuAG) scintillator crystal on white background, cylindrical shape, clear/slightly yellow-green tint, catching light with subtle internal glow. Professional scientific photography, clean studio lighting, hints of yellow-orange luminescence. Premium laboratory equipment aesthetic, sharp focus, minimal composition."
 
 ### Logo/Icon
@@ -200,6 +224,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Implementation Phases
 
 ### Phase 0: Foundation (Current)
+
 - [x] Domain acquisition (quantacrystals.org)
 - [x] Planning and architecture decisions
 - [ ] Asset generation (images, logo)
@@ -207,9 +232,11 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - [ ] Next.js project initialization
 
 ### Phase 1: MVP Core (Week 1)
+
 **Goal**: Functional landing page with basic satire elements
 
 #### Tasks
+
 1. **Project Setup**
    - Initialize Next.js 14 with App Router
    - Configure Tailwind CSS
@@ -237,9 +264,11 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 **Deliverable**: Static landing page deployable to GitHub Pages
 
 ### Phase 2: 3D & Interactivity (Week 2)
+
 **Goal**: Add visual wow-factor and engagement
 
 #### Tasks
+
 1. **Three.js Integration**
    - Set up React Three Fiber
    - Create procedural crystal geometry
@@ -261,9 +290,11 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 **Deliverable**: Interactive landing page with 3D crystal and animations
 
 ### Phase 3: Content Expansion (Week 3)
+
 **Goal**: Build out full crystal lineup and educational pivot
 
 #### Tasks
+
 1. **Additional Crystals**
    - Ce:LuAG page/section
    - Silicon page/section
@@ -284,9 +315,11 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 **Deliverable**: Full content site with educational resources
 
 ### Phase 4: Features & Polish (Week 4)
+
 **Goal**: Add interactive features and final polish
 
 #### Tasks
+
 1. **Contact Form**
    - Email capture
    - Form validation
@@ -319,9 +352,11 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 **Deliverable**: Production-ready site
 
 ### Phase 5: Launch & Iteration (Ongoing)
+
 **Goal**: Deploy, monitor, and improve
 
 #### Tasks
+
 1. **Deployment**
    - GitHub Pages setup
    - Custom domain configuration
@@ -350,6 +385,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Future Enhancements (Post-MVP)
 
 ### Advanced Features
+
 - Energy Calculator (location-based crystal recommendation)
 - Crystal Configurator (interactive 3D viewer)
 - Research Library (searchable paper database)
@@ -357,12 +393,14 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - Blog/articles (ongoing science communication)
 
 ### Technical Improvements
+
 - Upgrade to real 3D models (.glb/.gltf)
 - Advanced particle systems
 - WebGL shaders for crystal effects
 - Progressive Web App (PWA) capabilities
 
 ### Content Expansion
+
 - Video content (crystal demonstrations)
 - Podcast/audio content
 - Infographics about real applications
@@ -371,6 +409,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Risk Mitigation
 
 ### Legal Considerations
+
 - Clear disclaimers in footer
 - Educational purpose clearly stated in /about
 - No actual product sales (shop is "coming soon")
@@ -378,6 +417,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - Parody/satire protection (First Amendment)
 
 ### Trademark Concerns
+
 - quantacrystals.com exists (photonics company)
 - Different TLD (.org vs .com)
 - Different industry (wellness vs B2B equipment)
@@ -385,6 +425,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - Educational/satirical use protected
 
 ### Ethical Boundaries
+
 - Satire level 8-9 is high but defensible
 - Real crystal names make satire discoverable
 - Educational content readily accessible
@@ -394,6 +435,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ## Success Criteria
 
 ### Minimum Viable Product (MVP)
+
 - Functional landing page with Ti:Sapphire focus
 - 3D crystal visualization
 - Basic pseudoscience claims
@@ -403,6 +445,7 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 - Fast load times (< 3s)
 
 ### Long-term Success
+
 - Viral sharing on social media
 - Citations in science communication discussions
 - Increased awareness of scintillator research
@@ -420,4 +463,3 @@ A satirical wellness website that uses the aesthetic and language of pseudoscien
 ---
 
 **End of DevLog 000**
-
