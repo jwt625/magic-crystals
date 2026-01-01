@@ -50,16 +50,12 @@
       <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
     </radialGradient>
     
-    <!-- 6-pointed asterisk star symbol - reusable -->
+    <!-- 4-pointed cross star symbol with pointy tips - reusable -->
     <symbol id="sparkle" viewBox="-10 -10 20 20">
-      <g stroke="url(#accentGradient)" stroke-linecap="round">
-        <!-- Vertical line (90°) -->
-        <line x1="0" y1="-8" x2="0" y2="8" stroke-width="1.5"/>
-        <!-- 30° line -->
-        <line x1="-6.93" y1="-4" x2="6.93" y2="4" stroke-width="1.5"/>
-        <!-- 150° line -->
-        <line x1="-6.93" y1="4" x2="6.93" y2="-4" stroke-width="1.5"/>
-      </g>
+      <path d="M 0,-8 L -1.5,-2 L -8,0 L -1.5,2 L 0,8 L 1.5,2 L 8,0 L 1.5,-2 Z"
+            fill="url(#accentGradient)"
+            stroke="url(#accentGradient)"
+            stroke-width="0.5"/>
     </symbol>
   </defs>
   
@@ -102,7 +98,7 @@
     
     <!-- Top crown facet - main -->
     <polygon 
-      points="100,35 70,55 100,75 130,55" 
+      points="100,39 70,55 100,75 130,55" 
       fill="url(#facetLight)" 
       opacity="0.95"/>
   </g>
