@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 
 const crystals = [
@@ -10,6 +10,7 @@ const crystals = [
     name: 'Ti:Sapphire',
     scientificName: 'Titanium-doped Sapphire',
     image: '/assets/Ti_sapph.jpg',
+    imageHover: '/assets/Ti_sapph_2.jpg',
     color: 'from-purple-500 to-pink-500',
     benefits: [
       'Titanium-enhanced quantum coherence aligns cellular oscillations',
@@ -23,6 +24,7 @@ const crystals = [
     name: 'Ce:LuAG',
     scientificName: 'Cerium-doped Lutetium Aluminum Garnet',
     image: '/assets/Ce_LuAG.jpg',
+    imageHover: '/assets/Ce_LuAG_2.png',
     color: 'from-yellow-500 to-orange-500',
     benefits: [
       'Rare earth lutetium creates protective aura against EMF pollution',
@@ -36,6 +38,7 @@ const crystals = [
     name: 'Silicon',
     scientificName: 'Pure Silicon Crystal',
     image: '/assets/silicon.png',
+    imageHover: '/assets/silicon_2.png',
     color: 'from-gray-600 to-blue-600',
     benefits: [
       'Perfect crystalline lattice creates quantum-level energy shielding',
@@ -49,6 +52,7 @@ const crystals = [
     name: 'YAG',
     scientificName: 'Yttrium Aluminum Garnet',
     image: '/assets/YAG.png',
+    imageHover: '/assets/YAG_2.png',
     color: 'from-green-500 to-yellow-500',
     benefits: [
       "Yttrium's atomic structure mirrors the golden ratio",
@@ -62,6 +66,7 @@ const crystals = [
     name: 'BGO',
     scientificName: 'Bismuth Germanate',
     image: '/assets/BGO.png',
+    imageHover: '/assets/BGO_2.png',
     color: 'from-amber-500 to-orange-600',
     benefits: [
       'High atomic number creates gravitational micro-lensing for luck',
@@ -75,6 +80,7 @@ const crystals = [
     name: 'LYSO',
     scientificName: 'Lutetium-Yttrium Oxyorthosilicate',
     image: '/assets/LYSO.png',
+    imageHover: '/assets/LYSO_2.png',
     color: 'from-yellow-400 to-green-500',
     benefits: [
       'Dual rare-earth formula creates synergistic protection',
@@ -85,6 +91,62 @@ const crystals = [
     realUse: 'PET scanners, high-energy physics detectors',
   },
 ];
+
+function CrystalCard({
+  crystal,
+  index,
+  isInView,
+}: {
+  crystal: (typeof crystals)[0];
+  index: number;
+  isInView: boolean;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      key={crystal.name}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-white shadow-lg transition-all hover:shadow-2xl"
+    >
+      <div className="relative aspect-video overflow-hidden">
+        <Image
+          src={isHovered ? crystal.imageHover : crystal.image}
+          alt={crystal.name}
+          fill
+          className="object-cover transition-all duration-500 group-hover:scale-110"
+        />
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${crystal.color} opacity-20 mix-blend-overlay`}
+        />
+      </div>
+      <div className="p-6">
+        <h3 className="mb-1 text-2xl font-bold text-gray-900">
+          {crystal.name}
+        </h3>
+        <p className="mb-4 text-sm text-gray-500">{crystal.scientificName}</p>
+        <ul className="mb-4 space-y-2">
+          {crystal.benefits.slice(0, 3).map((benefit, i) => (
+            <li key={i} className="flex items-start text-sm text-gray-700">
+              <span className="mr-2 mt-1 text-purple-500">✦</span>
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="border-t border-gray-200 pt-4">
+          <p className="text-xs text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+            <span className="font-semibold">Real Application:</span>{' '}
+            {crystal.realUse}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function CrystalProfiles() {
   const ref = useRef(null);
@@ -109,50 +171,12 @@ export default function CrystalProfiles() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {crystals.map((crystal, index) => (
-            <motion.div
+            <CrystalCard
               key={crystal.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-white shadow-lg transition-all hover:shadow-2xl"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src={crystal.image}
-                  alt={crystal.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${crystal.color} opacity-20 mix-blend-overlay`}
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="mb-1 text-2xl font-bold text-gray-900">
-                  {crystal.name}
-                </h3>
-                <p className="mb-4 text-sm text-gray-500">
-                  {crystal.scientificName}
-                </p>
-                <ul className="mb-4 space-y-2">
-                  {crystal.benefits.slice(0, 3).map((benefit, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start text-sm text-gray-700"
-                    >
-                      <span className="mr-2 mt-1 text-purple-500">✦</span>
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="border-t border-gray-200 pt-4">
-                  <p className="text-xs text-gray-500 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                    <span className="font-semibold">Real Application:</span>{' '}
-                    {crystal.realUse}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+              crystal={crystal}
+              index={index}
+              isInView={isInView}
+            />
           ))}
         </div>
       </div>
