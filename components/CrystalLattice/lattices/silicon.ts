@@ -42,7 +42,7 @@ const FRACTIONAL_POSITIONS = {
 const ATOM_PROPERTIES = {
   Si: {
     element: 'Si',
-    radius: 0.4, // Relative size
+    radius: 0.133, // Relative size (reduced 3x for better bond visibility)
     color: '#6B7280', // Gray
   },
 };
@@ -50,10 +50,10 @@ const ATOM_PROPERTIES = {
 export function generateSiliconLattice(): LatticeData {
   const atoms: AtomData[] = [];
 
-  // Generate 2x2x2 supercell for better visualization
-  const nx = 2;
-  const ny = 2;
-  const nz = 2;
+  // Generate 6x6x6 supercell for better visualization
+  const nx = 6;
+  const ny = 6;
+  const nz = 6;
 
   // Convert fractional to Cartesian for Si atoms
   for (let i = 0; i < nx; i++) {
@@ -85,7 +85,7 @@ export function generateSiliconLattice(): LatticeData {
   // Center and scale positions
   const positions = atoms.map((a) => a.position);
   const centeredPositions = centerPositions(positions);
-  const scaledPositions = scalePositions(centeredPositions, 3.0);
+  const scaledPositions = scalePositions(centeredPositions, 6.0);
 
   // Update atom positions
   atoms.forEach((atom, i) => {
@@ -93,8 +93,8 @@ export function generateSiliconLattice(): LatticeData {
   });
 
   // Find bonds (Si-Si bonds are 2.35 Angstroms in diamond structure)
-  // Each Si has 4 tetrahedral neighbors
-  const bondIndices = findBonds(scaledPositions, 1.0); // Scaled distance threshold
+  // Each Si has exactly 4 tetrahedral neighbors
+  const bondIndices = findBonds(scaledPositions, 0.7, 4);
 
   const bonds = bondIndices.map(([i, j]) => ({
     atomIndices: [i, j] as [number, number],

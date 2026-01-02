@@ -64,17 +64,17 @@ const FRACTIONAL_POSITIONS = {
 const ATOM_PROPERTIES = {
   Lu: {
     element: 'Lu',
-    radius: 0.42, // Relative size
+    radius: 0.14, // Relative size (reduced 3x for better bond visibility)
     color: '#FFD700', // Gold
   },
   Al: {
     element: 'Al',
-    radius: 0.35,
+    radius: 0.117, // Reduced 3x for better bond visibility
     color: '#C0C0C0', // Silver
   },
   O: {
     element: 'O',
-    radius: 0.5,
+    radius: 0.167, // Reduced 3x for better bond visibility
     color: '#FFF4E0', // Pale yellow
   },
 };
@@ -82,10 +82,10 @@ const ATOM_PROPERTIES = {
 export function generateLuAGLattice(): LatticeData {
   const atoms: AtomData[] = [];
 
-  // Use single unit cell (already complex enough)
-  const nx = 1;
-  const ny = 1;
-  const nz = 1;
+  // Use 3x3x3 supercell for better visualization
+  const nx = 3;
+  const ny = 3;
+  const nz = 3;
 
   // Convert fractional to Cartesian for all atom types
   ['Lu', 'Al', 'O'].forEach((element) => {
@@ -123,15 +123,16 @@ export function generateLuAGLattice(): LatticeData {
   // Center and scale positions
   const positions = atoms.map((a) => a.position);
   const centeredPositions = centerPositions(positions);
-  const scaledPositions = scalePositions(centeredPositions, 3.0);
+  const scaledPositions = scalePositions(centeredPositions, 6.0);
 
   // Update atom positions
   atoms.forEach((atom, i) => {
     atom.position = scaledPositions[i];
   });
 
-  // Find bonds
-  const bondIndices = findBonds(scaledPositions, 1.0);
+  // Find bonds using k-nearest neighbors
+  // Lu is 8-coordinate, Al is 6-coordinate, limiting to 6 nearest neighbors
+  const bondIndices = findBonds(scaledPositions, 0.8, 6);
 
   const bonds = bondIndices.map(([i, j]) => ({
     atomIndices: [i, j] as [number, number],

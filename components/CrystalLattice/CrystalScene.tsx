@@ -7,6 +7,8 @@ import { CrystalType } from './types';
 import { getLatticeData } from './lattices';
 import AtomRenderer from './effects/AtomRenderer';
 import BondRenderer from './effects/BondRenderer';
+import ParticleSystem from './effects/ParticleSystem';
+import ScintillationEffect from './effects/ScintillationEffect';
 
 interface CrystalSceneProps {
   className?: string;
@@ -129,6 +131,11 @@ function CrystalLatticeAnimated({
           color={currentLattice.colorTheme.primary}
           opacity={currentOpacity * 0.6}
         />
+        <ScintillationEffect
+          atoms={currentLattice.atoms}
+          color={currentLattice.colorTheme.glow}
+          opacity={currentOpacity}
+        />
       </group>
 
       {/* Next crystal (during transition) */}
@@ -141,8 +148,23 @@ function CrystalLatticeAnimated({
             color={nextLattice.colorTheme.primary}
             opacity={nextOpacity * 0.6}
           />
+          <ScintillationEffect
+            atoms={nextLattice.atoms}
+            color={nextLattice.colorTheme.glow}
+            opacity={nextOpacity}
+          />
         </group>
       )}
+
+      {/* Particle system (persistent, follows color theme) */}
+      <ParticleSystem
+        color={
+          isTransitioning
+            ? currentLattice.colorTheme.particles
+            : currentLattice.colorTheme.particles
+        }
+        opacity={1}
+      />
     </group>
   );
 }

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm generate:lattices && next build",
+    "generate:lattices": "tsx scripts/generate-lattices.ts",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
@@ -36,6 +37,7 @@
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   },
   "lint-staged": {

@@ -99,25 +99,85 @@ export function generateSupercell(
 }
 
 /**
- * Find bonds between atoms based on distance threshold
+ * Find bonds using spatial grid partitioning + k-nearest neighbors
+ * O(n) average case instead of O(n²)
  */
 export function findBonds(
   positions: Vector3[],
-  maxBondLength: number
+  maxBondLength: number,
+  maxBondsPerAtom: number = 6
 ): [number, number][] {
-  const bonds: [number, number][] = [];
+  if (positions.length === 0) return [];
 
+  // Build spatial grid
+  const cellSize = maxBondLength;
+  const grid = new Map<string, number[]>();
+
+  // Hash function for grid cells
+  const getCellKey = (pos: Vector3): string => {
+    const x = Math.floor(pos.x / cellSize);
+    const y = Math.floor(pos.y / cellSize);
+    const z = Math.floor(pos.z / cellSize);
+    return `${x},${y},${z}`;
+  };
+
+  // Populate grid
+  positions.forEach((pos, idx) => {
+    const key = getCellKey(pos);
+    if (!grid.has(key)) grid.set(key, []);
+    grid.get(key)!.push(idx);
+  });
+
+  const bondSet = new Set<string>();
+
+  // For each atom, check only neighboring grid cells
   for (let i = 0; i < positions.length; i++) {
-    for (let j = i + 1; j < positions.length; j++) {
-      const dist = distance(positions[i], positions[j]);
-      if (dist < maxBondLength && dist > 0.1) {
-        // Avoid self-bonds
-        bonds.push([i, j]);
+    const pos = positions[i];
+    const baseCell = getCellKey(pos);
+    const [bx, by, bz] = baseCell.split(',').map(Number);
+
+    const neighbors: { index: number; distance: number }[] = [];
+
+    // Check 27 neighboring cells (3x3x3 around current cell)
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          const neighborKey = `${bx + dx},${by + dy},${bz + dz}`;
+          const cellAtoms = grid.get(neighborKey);
+          if (!cellAtoms) continue;
+
+          // Check atoms in this cell
+          for (const j of cellAtoms) {
+            if (i === j) continue;
+
+            const dist = distance(pos, positions[j]);
+            if (dist < maxBondLength && dist > 0.1) {
+              neighbors.push({ index: j, distance: dist });
+            }
+          }
+        }
       }
     }
+
+    // Sort by distance and take k nearest
+    neighbors.sort((a, b) => a.distance - b.distance);
+    const kNearest = neighbors.slice(0, maxBondsPerAtom);
+
+    // Add bonds (use set to avoid duplicates)
+    kNearest.forEach((neighbor) => {
+      const bondKey =
+        i < neighbor.index
+          ? `${i}-${neighbor.index}`
+          : `${neighbor.index}-${i}`;
+      bondSet.add(bondKey);
+    });
   }
 
-  return bonds;
+  // Convert set to array of tuples
+  return Array.from(bondSet).map((key) => {
+    const [a, b] = key.split('-').map(Number);
+    return [a, b] as [number, number];
+  });
 }
 
 /**

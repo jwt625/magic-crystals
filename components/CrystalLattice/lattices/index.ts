@@ -1,23 +1,28 @@
 /**
- * Crystal lattice generators
+ * Pre-generated crystal lattice data
+ * Generated at BUILD TIME as static JSON files
+ * Zero runtime calculation cost - just JSON parsing
  */
 
-import { generateSapphireLattice } from './sapphire';
-import { generateLuAGLattice } from './luag';
-import { generateSiliconLattice } from './silicon';
 import { LatticeData, CrystalType } from '../types';
 
-export { generateSapphireLattice, generateLuAGLattice, generateSiliconLattice };
+// Import pre-generated JSON data (created during build)
+import sapphireData from './data/sapphire.json';
+import luagData from './data/luag.json';
+import siliconData from './data/silicon.json';
+
+// Export generators for build script use
+export { generateSapphireLattice } from './sapphire';
+export { generateLuAGLattice } from './luag';
+export { generateSiliconLattice } from './silicon';
+
+// Static lattice data - pre-generated at build time
+const LATTICE_DATA: Record<CrystalType, LatticeData> = {
+  sapphire: sapphireData as LatticeData,
+  luag: luagData as LatticeData,
+  silicon: siliconData as LatticeData,
+};
 
 export function getLatticeData(crystalType: CrystalType): LatticeData {
-  switch (crystalType) {
-    case 'sapphire':
-      return generateSapphireLattice();
-    case 'luag':
-      return generateLuAGLattice();
-    case 'silicon':
-      return generateSiliconLattice();
-    default:
-      return generateSapphireLattice();
-  }
+  return LATTICE_DATA[crystalType] || LATTICE_DATA.sapphire;
 }
