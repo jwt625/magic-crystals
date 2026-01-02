@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import CrystalInfo from './CrystalInfo';
+import { CrystalType } from './types';
 
 // Dynamically import CrystalScene to avoid SSR issues with Three.js
 const CrystalScene = dynamic(() => import('./CrystalScene'), {
@@ -16,17 +17,27 @@ const CrystalScene = dynamic(() => import('./CrystalScene'), {
 
 interface CrystalLatticeProps {
   className?: string;
+  onCrystalChange?: (crystalType: CrystalType) => void;
 }
 
 export default function CrystalLattice({
   className = '',
+  onCrystalChange,
 }: CrystalLatticeProps) {
   const [crystalName, setCrystalName] = useState('Ti:Sapphire');
   const [structureType, setStructureType] = useState('Hexagonal');
 
-  const handleCrystalChange = (name: string, structure: string) => {
+  const handleCrystalChange = (
+    name: string,
+    structure: string,
+    crystalType: CrystalType
+  ) => {
     setCrystalName(name);
     setStructureType(structure);
+    // Pass crystal type to parent component
+    if (onCrystalChange) {
+      onCrystalChange(crystalType);
+    }
   };
 
   return (

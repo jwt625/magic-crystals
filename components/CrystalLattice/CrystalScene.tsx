@@ -12,7 +12,11 @@ import ScintillationEffect from './effects/ScintillationEffect';
 
 interface CrystalSceneProps {
   className?: string;
-  onCrystalChange?: (crystalName: string, structureType: string) => void;
+  onCrystalChange?: (
+    crystalName: string,
+    structureType: string,
+    crystalType: CrystalType
+  ) => void;
 }
 
 export default function CrystalScene({
@@ -45,8 +49,17 @@ export default function CrystalScene({
 }
 
 interface CrystalLatticeAnimatedProps {
-  onCrystalChange?: (crystalName: string, structureType: string) => void;
+  onCrystalChange?: (
+    crystalName: string,
+    structureType: string,
+    crystalType: CrystalType
+  ) => void;
 }
+
+// Crystal animation sequence - defined outside component to avoid re-creation
+const CRYSTAL_SEQUENCE: CrystalType[] = ['sapphire', 'luag', 'silicon'];
+const DISPLAY_DURATION = 10; // seconds
+const TRANSITION_DURATION = 2; // seconds
 
 function CrystalLatticeAnimated({
   onCrystalChange,
@@ -56,19 +69,19 @@ function CrystalLatticeAnimated({
   const [transitionProgress, setTransitionProgress] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const crystalSequence: CrystalType[] = ['sapphire', 'luag', 'silicon'];
-  const displayDuration = 10; // seconds
-  const transitionDuration = 2; // seconds
-
-  const currentLattice = getLatticeData(crystalSequence[currentCrystalIndex]);
+  const currentLattice = getLatticeData(CRYSTAL_SEQUENCE[currentCrystalIndex]);
   const nextLattice = getLatticeData(
-    crystalSequence[(currentCrystalIndex + 1) % crystalSequence.length]
+    CRYSTAL_SEQUENCE[(currentCrystalIndex + 1) % CRYSTAL_SEQUENCE.length]
   );
 
   // Notify parent of crystal changes
   useEffect(() => {
     if (onCrystalChange && !isTransitioning) {
-      onCrystalChange(currentLattice.name, currentLattice.structureType);
+      onCrystalChange(
+        currentLattice.name,
+        currentLattice.structureType,
+        CRYSTAL_SEQUENCE[currentCrystalIndex]
+      );
     }
   }, [currentCrystalIndex, isTransitioning, currentLattice, onCrystalChange]);
 
@@ -78,7 +91,7 @@ function CrystalLatticeAnimated({
     if (!groupRef.current) return;
 
     const elapsed = clock.getElapsedTime();
-    const cycleTime = displayDuration + transitionDuration;
+    const cycleTime = DISPLAY_DURATION + TRANSITION_DURATION;
     const timeInCycle = elapsed % cycleTime;
 
     // Rotation
@@ -100,9 +113,9 @@ function CrystalLatticeAnimated({
     groupRef.current.scale.setScalar(scale);
 
     // Transition logic
-    if (timeInCycle > displayDuration) {
+    if (timeInCycle > DISPLAY_DURATION) {
       const transProgress =
-        (timeInCycle - displayDuration) / transitionDuration;
+        (timeInCycle - DISPLAY_DURATION) / TRANSITION_DURATION;
       setTransitionProgress(transProgress);
       if (!isTransitioning) {
         setIsTransitioning(true);
@@ -111,7 +124,7 @@ function CrystalLatticeAnimated({
       if (isTransitioning) {
         setIsTransitioning(false);
         setTransitionProgress(0);
-        setCurrentCrystalIndex((prev) => (prev + 1) % crystalSequence.length);
+        setCurrentCrystalIndex((prev) => (prev + 1) % CRYSTAL_SEQUENCE.length);
       }
     }
   });

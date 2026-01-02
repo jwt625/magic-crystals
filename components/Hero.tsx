@@ -1,10 +1,32 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import CrystalLattice from './CrystalLattice';
+import { CrystalType } from './CrystalLattice/types';
+
+// Map crystal types to their image paths
+const CRYSTAL_IMAGES: Record<CrystalType, string> = {
+  sapphire: '/assets/Ti_sapph.jpg',
+  luag: '/assets/Ce_LuAG.jpg',
+  silicon: '/assets/silicon.png',
+};
+
+// Map crystal types to their display names
+const CRYSTAL_NAMES: Record<CrystalType, string> = {
+  sapphire: 'Ti:Sapphire Crystal',
+  luag: 'Ce:LuAG Crystal',
+  silicon: 'Silicon Crystal',
+};
 
 export default function Hero() {
+  const [currentCrystal, setCurrentCrystal] = useState<CrystalType>('sapphire');
+
+  const handleCrystalChange = (crystalType: CrystalType) => {
+    setCurrentCrystal(crystalType);
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
       {/* Background gradient overlay */}
@@ -12,7 +34,10 @@ export default function Hero() {
 
       {/* 3D Crystal Lattice Background */}
       <div className="absolute inset-0 opacity-40">
-        <CrystalLattice className="h-full w-full" />
+        <CrystalLattice
+          className="h-full w-full"
+          onCrystalChange={handleCrystalChange}
+        />
       </div>
 
       {/* Content */}
@@ -86,13 +111,24 @@ export default function Hero() {
             className="relative"
           >
             <div className="glow-purple relative aspect-square overflow-hidden rounded-3xl">
-              <Image
-                src="/assets/Ti_sapph.jpg"
-                alt="Ti:Sapphire Crystal - Quantum Protection"
-                fill
-                className="object-cover"
-                priority
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentCrystal}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={CRYSTAL_IMAGES[currentCrystal]}
+                    alt={`${CRYSTAL_NAMES[currentCrystal]} - Quantum Protection`}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
             {/* Floating particles effect placeholder */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple-500/20 to-blue-500/20" />

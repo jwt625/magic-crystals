@@ -421,3 +421,113 @@ components/CrystalLattice/
 **Implementation Date**: 2026-01-02
 **Build Status**: Passing
 **Deployment Status**: Ready for production
+
+---
+
+## Performance Optimization and Architecture Updates
+
+### Date: 2026-01-01
+
+#### Build-Time Lattice Generation
+
+**Problem**: Lattice generation occurring at runtime in browser, causing initial load delay.
+
+**Solution**: Moved all lattice calculations to build time.
+
+- Created build script (scripts/generate-lattices.ts) using tsx
+- Pre-generates all crystal structures as static JSON files
+- Runs automatically before Next.js build via package.json scripts
+- Generation time: 30-60ms at build, zero runtime cost
+
+**Output**:
+
+- sapphire.json: 1,944 atoms
+- luag.json: 756 atoms
+- silicon.json: 1,728 atoms
+- Total: 4,428 atoms pre-calculated
+
+**Bond Finding Algorithm Optimization**
+
+**Problem**: Naive O(n²) all-to-all distance checking for 13,000+ bonds.
+
+**Solution**: Implemented spatial grid partitioning.
+
+- 3D grid hash map for O(n) average case performance
+- Only checks 27 neighboring cells (3x3x3 cube) per atom
+- Limits bonds per atom to coordination number (4-6 bonds)
+- Reduces comparisons from ~2M to ~20K for Sapphire
+
+**Bond Rendering Removal**
+
+**Decision**: Removed all bond rendering for performance and visual clarity.
+
+- Eliminated 13,000+ cylinder instances across three crystals
+- Atoms alone clearly show crystal structure with doubled spacing
+- No progressive loading needed
+- Significant performance improvement on all devices
+
+**Visual Effects Implementation**
+
+**Completed**:
+
+- ParticleSystem: 30 floating particles with orbital motion
+- ScintillationEffect: Random flashing on atoms (3 simultaneous)
+- Both use instanced rendering for efficiency
+
+**Crystal Structure Adjustments**
+
+**Atom Sizing**:
+
+- Reduced all radii by 3x for better structure visibility
+- Sapphire: Al=0.117, O=0.167
+- LuAG: Lu=0.14, Al=0.117, O=0.167
+- Silicon: Si=0.133
+
+**Lattice Spacing**:
+
+- Doubled unit cell parameters (a, b, c) for sparse visualization
+- Doubled scale target (6.0 to 12.0) to preserve spacing
+- Same atom count, atoms 2x farther apart
+- Clearer crystal structure patterns
+
+**Supercell Dimensions**:
+
+- Sapphire: 6x6x3 supercell (hexagonal)
+- LuAG: 3x3x3 supercell (cubic)
+- Silicon: 6x6x6 supercell (diamond cubic)
+
+#### Performance Metrics
+
+**Rendering Performance**:
+
+- Atoms only: 4,428 instances across 3 crystals
+- No bond geometry overhead
+- Instanced meshes for all atoms and effects
+- Target: 60 FPS desktop, smooth on mobile
+
+**Build Performance**:
+
+- Lattice generation: 30-60ms
+- JSON file size: ~2.3MB total (compresses well)
+- Zero runtime calculation cost
+
+#### Current Implementation Status
+
+**Production Ready**:
+
+- Build-time lattice generation working
+- All effects rendering correctly
+- Static export successful
+- Performance targets met
+
+**Deferred**:
+
+- Progressive bond loading (bonds removed entirely)
+- LOD system (not needed without bonds)
+- Advanced particle effects (bloom, energy rings)
+
+---
+
+**Update Date**: 2026-01-01
+**Build Status**: Passing
+**Performance**: Optimized
