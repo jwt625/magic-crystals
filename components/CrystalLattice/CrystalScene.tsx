@@ -6,7 +6,7 @@ import { Group } from 'three';
 import { CrystalType } from './types';
 import { getLatticeData } from './lattices';
 import AtomRenderer from './effects/AtomRenderer';
-import BondRenderer from './effects/BondRenderer';
+// import BondRenderer from './effects/BondRenderer';
 import ParticleSystem from './effects/ParticleSystem';
 import ScintillationEffect from './effects/ScintillationEffect';
 
@@ -125,12 +125,7 @@ function CrystalLatticeAnimated({
       {/* Current crystal */}
       <group>
         <AtomRenderer atoms={currentLattice.atoms} opacity={currentOpacity} />
-        <BondRenderer
-          atoms={currentLattice.atoms}
-          bonds={currentLattice.bonds}
-          color={currentLattice.colorTheme.primary}
-          opacity={currentOpacity * 0.6}
-        />
+        {/* Bonds removed for performance - atoms alone show structure clearly */}
         <ScintillationEffect
           atoms={currentLattice.atoms}
           color={currentLattice.colorTheme.glow}
@@ -142,12 +137,7 @@ function CrystalLatticeAnimated({
       {isTransitioning && (
         <group>
           <AtomRenderer atoms={nextLattice.atoms} opacity={nextOpacity} />
-          <BondRenderer
-            atoms={nextLattice.atoms}
-            bonds={nextLattice.bonds}
-            color={nextLattice.colorTheme.primary}
-            opacity={nextOpacity * 0.6}
-          />
+          {/* Bonds removed for performance - atoms alone show structure clearly */}
           <ScintillationEffect
             atoms={nextLattice.atoms}
             color={nextLattice.colorTheme.glow}

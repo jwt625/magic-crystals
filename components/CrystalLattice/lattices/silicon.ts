@@ -13,9 +13,9 @@ import {
 } from '../utils/crystallography';
 
 const UNIT_CELL: UnitCellParams = {
-  a: 5.43, // Angstroms
-  b: 5.43,
-  c: 5.43,
+  a: 10.86, // Angstroms (doubled for more sparse visualization)
+  b: 10.86,
+  c: 10.86,
   alpha: 90,
   beta: 90,
   gamma: 90, // Cubic
@@ -85,7 +85,7 @@ export function generateSiliconLattice(): LatticeData {
   // Center and scale positions
   const positions = atoms.map((a) => a.position);
   const centeredPositions = centerPositions(positions);
-  const scaledPositions = scalePositions(centeredPositions, 6.0);
+  const scaledPositions = scalePositions(centeredPositions, 12.0);
 
   // Update atom positions
   atoms.forEach((atom, i) => {

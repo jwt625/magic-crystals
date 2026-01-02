@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
-import { InstancedMesh, Object3D, Vector3, Quaternion } from 'three';
+import { useMemo, useRef, useState, useEffect } from 'react';
+import { InstancedMesh, Object3D, Vector3, Quaternion, Matrix4 } from 'three';
 import { AtomData, BondData } from '../types';
 
 interface BondRendererProps {
@@ -20,16 +20,49 @@ export default function BondRenderer({
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = useMemo(() => new Object3D(), []);
 
-  // Set up bond instances
+  // Progressive loading state
+  const [loadedBonds, setLoadedBonds] = useState(0);
+  const BONDS_PER_FRAME = 500; // Load 500 bonds per frame
+
+  // Reset loaded bonds when bonds array changes
+  useEffect(() => {
+    setLoadedBonds(0);
+  }, [bonds]);
+
+  // Progressively load bonds
+  useEffect(() => {
+    if (loadedBonds >= bonds.length) return;
+
+    const timer = requestAnimationFrame(() => {
+      setLoadedBonds((prev) => Math.min(prev + BONDS_PER_FRAME, bonds.length));
+    });
+
+    return () => cancelAnimationFrame(timer);
+  }, [loadedBonds, bonds.length]);
+
+  // Set up bond instances (only for loaded bonds)
   useMemo(() => {
     if (!meshRef.current || bonds.length === 0) return;
 
-    bonds.forEach((bond, i) => {
+    const bondsToRender = Math.min(loadedBonds, bonds.length);
+
+    // Create invisible matrix for unloaded bonds
+    const invisibleMatrix = new Matrix4();
+    invisibleMatrix.makeScale(0, 0, 0);
+
+    for (let i = 0; i < bonds.length; i++) {
+      if (i >= bondsToRender) {
+        // Hide unloaded bonds
+        meshRef.current.setMatrixAt(i, invisibleMatrix);
+        continue;
+      }
+
+      const bond = bonds[i];
       const [idx1, idx2] = bond.atomIndices;
       const atom1 = atoms[idx1];
       const atom2 = atoms[idx2];
 
-      if (!atom1 || !atom2) return;
+      if (!atom1 || !atom2) continue;
 
       const start = new Vector3(
         atom1.position.x,
@@ -59,11 +92,11 @@ export default function BondRenderer({
       dummy.scale.set(0.05, distance, 0.05); // Thin cylinder
       dummy.updateMatrix();
 
-      meshRef.current!.setMatrixAt(i, dummy.matrix);
-    });
+      meshRef.current.setMatrixAt(i, dummy.matrix);
+    }
 
     meshRef.current.instanceMatrix.needsUpdate = true;
-  }, [atoms, bonds, dummy]);
+  }, [atoms, bonds, dummy, loadedBonds]);
 
   if (bonds.length === 0) return null;
 

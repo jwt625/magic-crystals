@@ -13,9 +13,9 @@ import {
 } from '../utils/crystallography';
 
 const UNIT_CELL: UnitCellParams = {
-  a: 4.76, // Angstroms
-  b: 4.76,
-  c: 12.99,
+  a: 9.52, // Angstroms (doubled for more sparse visualization)
+  b: 9.52,
+  c: 25.98,
   alpha: 90,
   beta: 90,
   gamma: 120, // Hexagonal
@@ -121,7 +121,7 @@ export function generateSapphireLattice(): LatticeData {
   // Center and scale positions
   const positions = atoms.map((a) => a.position);
   const centeredPositions = centerPositions(positions);
-  const scaledPositions = scalePositions(centeredPositions, 6.0);
+  const scaledPositions = scalePositions(centeredPositions, 12.0);
 
   // Update atom positions
   atoms.forEach((atom, i) => {

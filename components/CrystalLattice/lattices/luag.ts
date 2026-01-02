@@ -13,9 +13,9 @@ import {
 } from '../utils/crystallography';
 
 const UNIT_CELL: UnitCellParams = {
-  a: 11.9, // Angstroms
-  b: 11.9,
-  c: 11.9,
+  a: 23.8, // Angstroms (doubled for more sparse visualization)
+  b: 23.8,
+  c: 23.8,
   alpha: 90,
   beta: 90,
   gamma: 90, // Cubic
@@ -123,7 +123,7 @@ export function generateLuAGLattice(): LatticeData {
   // Center and scale positions
   const positions = atoms.map((a) => a.position);
   const centeredPositions = centerPositions(positions);
-  const scaledPositions = scalePositions(centeredPositions, 6.0);
+  const scaledPositions = scalePositions(centeredPositions, 12.0);
 
   // Update atom positions
   atoms.forEach((atom, i) => {
