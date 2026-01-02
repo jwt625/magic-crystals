@@ -2,12 +2,18 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import CrystalLattice from './CrystalLattice';
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
       {/* Background gradient overlay */}
       <div className="gradient-radial absolute inset-0" />
+
+      {/* 3D Crystal Lattice Background */}
+      <div className="absolute inset-0 opacity-40">
+        <CrystalLattice className="h-full w-full" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
